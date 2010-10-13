@@ -253,7 +253,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <None Include="EULA.rtf" />
     <Resource Include="Fonts\SEGOEUII.TTF" />
     <Resource Include="Fonts\SEGOEUIL.TTF" />
     <Resource Include="Fonts\SEGOEUIZ.TTF" />
