@@ -1,8 +1,10 @@
-Tasks.Show was built by [Pixel Lab](http://thinkpixellab.com) for Microsoft.
+![Tasks.Show](http://github.com/thinkpixellab/Tasks.Show/raw/master/Tasks.Show.App/Images/about.png)
 
-The contents of the application are licensed under the Ms-PL. (Included below.)
+Originally built for the [Microsoft Code Gallery](http://code.msdn.microsoft.com). Description from the [project page](http://code.msdn.microsoft.com/Tasks): 
+> Are you still using yellow sticky notes to remember tasks on your to-do list. Did you ever need an easy, light and quick way to manage your to-do list? Well we got a solution for you. Tasks.Show is a simple Windows application that lets you manage your to-do list in an easy and intuitive meaner. Simply create new task, assign it to a project and give it a deadline, and you are set. 
 
-Tasks.Show uses the Pixel Lab Bag of Tricks, which is licensed under the MIT license. 
+* Source licensed under the [Microsoft Public License](http://www.opensource.org/licenses/ms-pl.html). (Included below.)
+* Uses the [Bag of Tricks](http://github.com/thinkpixellab/bot) by [Pixel Lab](http://thinkpixellab.com). *[MIT license](http://www.opensource.org/licenses/mit-license.html)*
 
 ### Microsoft Public License (Ms-PL)
 This license governs use of the accompanying software. If you use the software, you accept this license. If you do not accept the license, do not use the software.
