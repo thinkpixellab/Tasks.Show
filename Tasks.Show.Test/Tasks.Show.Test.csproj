@@ -128,7 +128,7 @@
       <Project>{E4BBC94F-B837-4668-A127-E36E6DE012F5}</Project>
       <Name>PixelLab.Wpf_4</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Tasks.Show.Data\Tasks.Show.Data.VS2010.csproj">
+    <ProjectReference Include="..\Tasks.Show.Data\Tasks.Show.Data.csproj">
       <Project>{BF7415CD-E6B2-4661-B780-6240DA60F605}</Project>
       <Name>Tasks.Show.Data.VS2010</Name>
     </ProjectReference>
