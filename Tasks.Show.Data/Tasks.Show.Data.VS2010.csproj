@@ -10,7 +10,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Tasks.Show</RootNamespace>
     <AssemblyName>Tasks.Show.Data</AssemblyName>
-    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile>Client</TargetFrameworkProfile>
   </PropertyGroup>
@@ -38,12 +38,6 @@
     <Reference Include="Microsoft.WindowsAPICodePack.Shell">
       <HintPath>..\Binaries\Microsoft.WindowsAPICodePack.Shell.dll</HintPath>
     </Reference>
-    <Reference Include="PixelLab.Common">
-      <HintPath>..\Binaries\PixelLab.Common.dll</HintPath>
-    </Reference>
-    <Reference Include="PixelLab.Wpf">
-      <HintPath>..\Binaries\PixelLab.Wpf.dll</HintPath>
-    </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
@@ -67,6 +61,16 @@
     <Compile Include="Models\TaskData.cs" />
     <Compile Include="Models\TaskParser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\bot\PixelLab.Common\PixelLab.Common_WPF4.csproj">
+      <Project>{273247A2-A3C8-42D0-8463-F95FC5C0A34C}</Project>
+      <Name>PixelLab.Common_WPF4</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\bot\PixelLab.Wpf\PixelLab.Wpf_4.csproj">
+      <Project>{E4BBC94F-B837-4668-A127-E36E6DE012F5}</Project>
+      <Name>PixelLab.Wpf_4</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

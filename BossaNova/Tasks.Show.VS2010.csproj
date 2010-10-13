@@ -10,7 +10,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Tasks.Show</RootNamespace>
     <AssemblyName>Tasks.Show</AssemblyName>
-    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
@@ -79,20 +79,13 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Binaries\Microsoft.WindowsAPICodePack.Shell.dll</HintPath>
     </Reference>
-    <Reference Include="PixelLab.Common, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Binaries\PixelLab.Common.dll</HintPath>
-    </Reference>
-    <Reference Include="PixelLab.Wpf, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Binaries\PixelLab.Wpf.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
     <Reference Include="System.Management" />
     <Reference Include="System.Runtime.Remoting" />
+    <Reference Include="System.Xaml" />
     <Reference Include="System.Xml" />
     <Reference Include="UIAutomationProvider" />
     <Reference Include="WindowsBase" />
@@ -284,6 +277,14 @@
     <Resource Include="Welcome\welcome_01.png" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\bot\PixelLab.Common\PixelLab.Common_WPF4.csproj">
+      <Project>{273247A2-A3C8-42D0-8463-F95FC5C0A34C}</Project>
+      <Name>PixelLab.Common_WPF4</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\bot\PixelLab.Wpf\PixelLab.Wpf_4.csproj">
+      <Project>{E4BBC94F-B837-4668-A127-E36E6DE012F5}</Project>
+      <Name>PixelLab.Wpf_4</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Tasks.Show.Data\Tasks.Show.Data.VS2010.csproj">
       <Project>{BF7415CD-E6B2-4661-B780-6240DA60F605}</Project>
       <Name>Tasks.Show.Data.VS2010</Name>
