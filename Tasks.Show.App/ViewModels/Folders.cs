@@ -10,7 +10,7 @@ namespace Tasks.Show.ViewModels
     {
         #region Fields
 
-        private readonly DelegateCommand<Color> m_setCurrentColorCommand;
+        private readonly DelegateCommand<Color?> m_setCurrentColorCommand;
         private readonly DelegateCommand<BaseFolder> m_setCurrentCommand;
         private readonly TaskData m_taskData;
 
@@ -27,8 +27,8 @@ namespace Tasks.Show.ViewModels
                 val => m_taskData.CurrentFolder = val,
                 val => m_taskData.CurrentFolder != val);
 
-            m_setCurrentColorCommand = new DelegateCommand<Color>(
-                var => m_taskData.CurrentFolder.Color = var,
+            m_setCurrentColorCommand = new DelegateCommand<Color?>(
+                var => m_taskData.CurrentFolder.Color = var.Value,
                 var => IsCurrentUserFolder
             );
         }
