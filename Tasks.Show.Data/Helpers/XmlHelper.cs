@@ -193,7 +193,7 @@ namespace Tasks.Show.Helpers
         {
             Contract.Requires(element.Name == "Folder");
             var name = element.Attribute("Name").Value;
-            var color = BOT.ParseHexColor(element.Attribute("Color").Value);
+            var color = ColorHelper.ParseHexColor(element.Attribute("Color").Value);
             key = new Guid(element.Attribute(s_KeyName).Value);
             return new Folder(name, color);
         }
