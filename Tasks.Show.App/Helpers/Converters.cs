@@ -1,14 +1,14 @@
 ﻿using System;
+using System.Diagnostics;
+using System.Windows;
 using System.Windows.Data;
 using System.Windows.Media;
-using System.Windows;
-using System.Diagnostics;
 
 namespace Tasks.Show.Helpers
 {
     public class BrushToAlphaBrushConverter : IValueConverter
     {
-		#region Properties 
+        #region Properties
 
         private byte Alpha
         {
@@ -20,7 +20,7 @@ namespace Tasks.Show.Helpers
 
         public double Opacity { get; set; }
 
-		#endregion Properties 
+        #endregion Properties
 
         #region IValueConverter Members
 
@@ -47,14 +47,14 @@ namespace Tasks.Show.Helpers
 
     public class BoolToDoubleConverter : IValueConverter
     {
-		#region Fields 
+        #region Fields
 
         private double _FalseValue = 0.5;
         private double _TrueValue = 1.0;
 
-		#endregion Fields 
+        #endregion Fields
 
-		#region Properties 
+        #region Properties
 
         public double FalseValue
         {
@@ -68,7 +68,7 @@ namespace Tasks.Show.Helpers
             set { _TrueValue = value; }
         }
 
-		#endregion Properties 
+        #endregion Properties
 
         #region IValueConverter Members
 
@@ -125,7 +125,7 @@ namespace Tasks.Show.Helpers
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
             string format = parameter.ToString();
-            
+
             if (value is DateTime)
             {
                 // there is no support for a single letter representation of the day of the 
@@ -168,11 +168,11 @@ namespace Tasks.Show.Helpers
 
     public class ColorToBrushConverterWithFallback : IValueConverter
     {
-		#region Properties 
+        #region Properties
 
         public Brush FallbackBrush { get; set; }
 
-		#endregion Properties 
+        #endregion Properties
 
         #region IValueConverter Members
 
@@ -185,7 +185,7 @@ namespace Tasks.Show.Helpers
             return FallbackBrush;
         }
 
-        public object  ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
             return null;
         }
