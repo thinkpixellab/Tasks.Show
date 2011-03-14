@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
+using PixelLab.Contracts;
 using Tasks.Show.Helpers;
-using PixelLab.Common;
 
 namespace Tasks.Show.Models
 {
@@ -55,7 +55,7 @@ namespace Tasks.Show.Models
             get { return m_estimate; }
             set
             {
-                Util.RequireArgument(!value.HasValue || value.Value.Ticks >= 0, "value");
+                Contract.Requires(!value.HasValue || value.Value.Ticks >= 0, "value");
                 if (value != m_estimate)
                 {
                     m_estimate = value;

@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Windows.Media;
 using PixelLab.Common;
+using PixelLab.Contracts;
 using Tasks.Show.Helpers;
 
 namespace Tasks.Show.Models
@@ -32,7 +33,7 @@ namespace Tasks.Show.Models
 
         public bool ContainsTask(Task task)
         {
-            Util.RequireNotNull(task, "task");
+            Contract.Requires(null != task, "task");
             if (this == SpecialFolder.AllFolder)
             {
                 return true;
@@ -186,9 +187,9 @@ namespace Tasks.Show.Models
 
         internal void UpdateName(string name)
         {
-            Util.RequireArgument(name == name.SuperTrim(), "name's must be trimmed");
-            Util.RequireNotNullOrEmpty(name, "name");
-            Util.RequireArgument(IsValidFolderName(name), "name", "The provided value is reserved");
+            Contract.Requires(name == name.SuperTrim(), "name's must be trimmed");
+            Contract.Requires(!name.IsNullOrWhiteSpace(), "name");
+            Contract.Requires(IsValidFolderName(name), "The provided value is reserved");
 
             m_name = name;
             OnPropertyChanged(new PropertyChangedEventArgs("Name"));

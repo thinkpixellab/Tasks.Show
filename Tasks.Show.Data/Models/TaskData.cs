@@ -7,6 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Windows.Media;
 using PixelLab.Common;
+using PixelLab.Contracts;
 using Tasks.Show.Helpers;
 
 namespace Tasks.Show.Models
@@ -17,9 +18,9 @@ namespace Tasks.Show.Models
 
         public TaskData(IEnumerable<Task> tasks, IEnumerable<Folder> folders, BaseFolder currentFolder, string filter)
         {
-            Util.RequireNotNull(tasks, "tasks");
-            Util.RequireNotNull(folders, "folders");
-            Util.RequireNotNull(currentFolder, "currentFolder");
+            Contract.Requires(tasks != null, "tasks");
+            Contract.Requires(null != folders, "folders");
+            Contract.Requires(null != currentFolder, "currentFolder");
 
             folders.ForEach(folder => AddFolder(folder));
             m_userFolders = new ReadOnlyCollection<Folder>(m_folderList);
@@ -56,7 +57,7 @@ namespace Tasks.Show.Models
                 {
                     if (!value.IsSpecial)
                     {
-                        Util.RequireArgument(m_folderList.Contains((Folder)value), "folder");
+                        Contract.Requires(m_folderList.Contains((Folder)value), "folder");
                     }
                     m_currentFolder = value;
                     OnPropertyChanged(new PropertyChangedEventArgs("CurrentFolder"));
@@ -66,11 +67,11 @@ namespace Tasks.Show.Models
 
         public void AddFolder(Folder folder)
         {
-            Util.RequireNotNull(folder, "folder");
-            Util.RequireArgument(!m_folderList.Contains(folder), "folder");
-            Util.RequireArgument(
+            Contract.Requires(null != folder, "folder");
+            Contract.Requires(!m_folderList.Contains(folder), "folder");
+            Contract.Requires(
                 !m_folderList.Any(existing => existing.Name.EasyEquals(folder.Name)),
-                "folder", "A folder with the same name exists");
+                "A folder with the same name exists");
 
             m_folderList.Add(folder);
             refreshAllFolders();
@@ -78,8 +79,8 @@ namespace Tasks.Show.Models
 
         public void RemoveFolder(Folder folder)
         {
-            Util.RequireNotNull(folder, "folder");
-            Util.RequireArgument(m_folderList.Contains(folder), "folder");
+            Contract.Requires(null != folder, "folder");
+            Contract.Requires(m_folderList.Contains(folder), "folder");
             m_taskList
                 .Where(task => task.Folder == folder)
                 .ForEach(task => task.Folder = null);
@@ -89,10 +90,10 @@ namespace Tasks.Show.Models
 
         public void RenameFolder(Folder folder, string newName)
         {
-            Util.RequireNotNull(folder, "folder");
-            Util.RequireArgument(m_folderList.Contains(folder), "folder");
-            Util.RequireArgument(newName == newName.SuperTrim(), "newName");
-            Util.RequireArgument(Folder.IsValidFolderName(newName), "newName");
+            Contract.Requires(null != folder, "folder");
+            Contract.Requires(m_folderList.Contains(folder), "folder");
+            Contract.Requires(newName == newName.SuperTrim(), "newName");
+            Contract.Requires(Folder.IsValidFolderName(newName), "newName");
 
             if (folder.Name == newName)
             {
@@ -135,16 +136,16 @@ namespace Tasks.Show.Models
 
         public void AddTask(Task task)
         {
-            Util.RequireNotNull(task, "task");
-            Util.RequireArgument(!m_taskList.Contains(task), "task");
-            Util.RequireArgument(task.Folder == null || m_folderList.Contains(task.Folder), "task", "task.Folder must be null or exist");
+            Contract.Requires(null != task, "task");
+            Contract.Requires(!m_taskList.Contains(task), "task");
+            Contract.Requires(task.Folder == null || m_folderList.Contains(task.Folder), "task.Folder must be null or exist");
             m_taskList.Add(task);
             task.FolderChanging += task_folderChangeRequest;
         }
 
         public Task AddTask(DraftTask task, IList<Color> colorOptions)
         {
-            Util.RequireNotNull(task, "task");
+            Contract.Requires(null != task, "task");
             var color = getNextColor(colorOptions);
 
             var folder = m_folderList.FirstOrDefault(f => f.Name.EasyEquals(task.FolderName));
@@ -163,7 +164,7 @@ namespace Tasks.Show.Models
 
         public BaseFolder MoveTask(Task task, string folderName, IList<Color> newFolderColorOptions)
         {
-            Util.RequireArgument(m_taskList.Contains(task), "task");
+            Contract.Requires(m_taskList.Contains(task), "task");
             var folder = m_folderList.FirstOrDefault(f => f.Name.EasyEquals(folderName));
             if (folder == null && Folder.IsValidFolderName(folderName))
             {
@@ -176,15 +177,15 @@ namespace Tasks.Show.Models
 
         public void ReorderTasks(Task task, Task targetLocationTask)
         {
-            Util.RequireArgument(m_taskList.Contains(task), "task");
-            Util.RequireArgument(m_taskList.Contains(targetLocationTask), "targetLocationTask");
+            Contract.Requires(m_taskList.Contains(task), "task");
+            Contract.Requires(m_taskList.Contains(targetLocationTask), "targetLocationTask");
             m_taskList.Move(m_taskList.IndexOf(task), m_taskList.IndexOf(targetLocationTask));
         }
 
         public void RemoveTask(Task task)
         {
-            Util.RequireNotNull(task, "task");
-            Util.RequireArgument(m_taskList.Contains(task), "task");
+            Contract.Requires(null != task, "task");
+            Contract.Requires(m_taskList.Contains(task), "task");
             m_taskList.Remove(task);
             task.FolderChanging -= task_folderChangeRequest;
         }
@@ -278,7 +279,7 @@ namespace Tasks.Show.Models
 
         private Color getNextColor(IList<Color> colorOptions)
         {
-            Util.RequireNotNull(colorOptions, "colorOptions");
+            Contract.Requires(null != colorOptions, "colorOptions");
 
             var toUse = colorOptions
                 .Select(color => new { Color = color, Count = m_folderList.Count(t => t.Color == color) })

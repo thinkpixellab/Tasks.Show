@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text.RegularExpressions;
-using PixelLab.Common;
+using PixelLab.Contracts;
 
 namespace Tasks.Show.Models
 {
     public static class TaskParser
     {
-		#region Fields 
+        #region Fields
 
         private const string c_importantChar = "!";
         private const char c_markerChar = ':';
@@ -20,15 +20,15 @@ namespace Tasks.Show.Models
             string.Format(c_markerRegExFormat, getMarkerNamesRegex(), c_markerChar),
             RegexOptions.IgnoreCase | RegexOptions.Compiled | RegexOptions.CultureInvariant);
 
-		#endregion Fields 
+        #endregion Fields
 
-		#region Enums 
+        #region Enums
 
         private enum TaskMarker { AT, IN, FOR, IMPORTANT, ON, BY };
 
-		#endregion Enums 
+        #endregion Enums
 
-		#region Public Methods 
+        #region Public Methods
 
         public static DraftTask Parse(string value)
         {
@@ -43,7 +43,7 @@ namespace Tasks.Show.Models
 
         public static DraftTask TryParse(string value, out string error)
         {
-            Util.RequireNotNull(value, "value");
+            Contract.Requires(null != value, "value");
             var task = new DraftTask();
 
             var tokens = tokenize(value);
@@ -113,9 +113,9 @@ namespace Tasks.Show.Models
             return task;
         }
 
-		#endregion Public Methods 
+        #endregion Public Methods
 
-		#region Private Methods 
+        #region Private Methods
 
         private static string getMarkerName(TaskMarker tm)
         {
@@ -184,7 +184,7 @@ namespace Tasks.Show.Models
             return objects;
         }
 
-		#endregion Private Methods 
+        #endregion Private Methods
     }
 
 }

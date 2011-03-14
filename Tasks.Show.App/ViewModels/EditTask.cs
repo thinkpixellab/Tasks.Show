@@ -1,16 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using PixelLab.Common;
+using PixelLab.Contracts;
+using Tasks.Show.Helpers;
 using Tasks.Show.Models;
 using Tasks.Show.Utils;
-using PixelLab.Common;
-using Tasks.Show.Helpers;
 
 namespace Tasks.Show.ViewModels
 {
     public class EditTask : INotifyPropertyChanged, IDataErrorInfo
     {
-		#region Constructors 
+        #region Constructors
 
         public EditTask()
         {
@@ -19,9 +20,9 @@ namespace Tasks.Show.ViewModels
             validateDescription();
         }
 
-		#endregion Constructors 
+        #endregion Constructors
 
-		#region Properties 
+        #region Properties
 
         public string DescriptionString
         {
@@ -101,26 +102,26 @@ namespace Tasks.Show.ViewModels
             }
         }
 
-		#endregion Properties 
+        #endregion Properties
 
-		#region Events 
+        #region Events
 
         public event EventHandler Committed;
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-		#endregion Events 
+        #endregion Events
 
-		#region Public Methods 
+        #region Public Methods
 
         public void Commit()
         {
             OnCommitted(EventArgs.Empty);
         }
 
-		#endregion Public Methods 
+        #endregion Public Methods
 
-		#region Protected Methods 
+        #region Protected Methods
 
         protected virtual void OnCommitted(EventArgs e)
         {
@@ -140,7 +141,7 @@ namespace Tasks.Show.ViewModels
             }
         }
 
-		#endregion Protected Methods 
+        #endregion Protected Methods
 
         #region IDataErrorInfo Members
 
@@ -165,7 +166,7 @@ namespace Tasks.Show.ViewModels
 
         private void setError(string columnName, string errorString)
         {
-            Util.RequireNotNullOrEmpty(columnName, "columnName");
+            Contract.Requires(!columnName.IsNullOrWhiteSpace(), "columnName");
             if (errorString == null)
             {
                 m_propertyErrors.Remove(columnName);

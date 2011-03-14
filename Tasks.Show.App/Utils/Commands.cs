@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Input;
-using PixelLab.Common;
+using PixelLab.Contracts;
 
 namespace Tasks.Show.Utils
 {
@@ -10,9 +10,9 @@ namespace Tasks.Show.Utils
 
         public static void MapCommand(ICommand source, RoutedCommand target, UIElement element)
         {
-            Util.RequireNotNull(source, "source");
-            Util.RequireNotNull(target, "target");
-            Util.RequireNotNull(element, "element");
+            Contract.Requires(null != source, "source");
+            Contract.Requires(null != target, "target");
+            Contract.Requires(null != element, "element");
 
             var binding = new CommandBinding(target,
                 (sender, args) => { source.Execute(args.Parameter); },

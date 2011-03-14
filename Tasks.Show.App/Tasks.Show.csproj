@@ -71,6 +71,9 @@
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.Practices.Prism">
+      <HintPath>..\bot\lib\Prism\Desktop\Microsoft.Practices.Prism.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.WindowsAPICodePack, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Binaries\Microsoft.WindowsAPICodePack.dll</HintPath>
@@ -276,11 +279,11 @@
     <Resource Include="Welcome\welcome_01.png" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\bot\PixelLab.Common\PixelLab.Common_WPF4.csproj">
+    <ProjectReference Include="..\bot\Common\PixelLab.Common.csproj">
       <Project>{273247A2-A3C8-42D0-8463-F95FC5C0A34C}</Project>
       <Name>PixelLab.Common_WPF4</Name>
     </ProjectReference>
-    <ProjectReference Include="..\bot\PixelLab.Wpf\PixelLab.Wpf_4.csproj">
+    <ProjectReference Include="..\bot\Wpf\PixelLab.Wpf.csproj">
       <Project>{E4BBC94F-B837-4668-A127-E36E6DE012F5}</Project>
       <Name>PixelLab.Wpf_4</Name>
     </ProjectReference>

@@ -1,6 +1,7 @@
 ﻿using System.Windows.Input;
 using System.Windows.Media;
-using PixelLab.Common;
+using Microsoft.Practices.Prism.Commands;
+using PixelLab.Contracts;
 using Tasks.Show.Models;
 
 namespace Tasks.Show.ViewModels
@@ -9,8 +10,8 @@ namespace Tasks.Show.ViewModels
     {
         #region Fields
 
-        private readonly CommandWrapper<Color> m_setCurrentColorCommand;
-        private readonly CommandWrapper<BaseFolder> m_setCurrentCommand;
+        private readonly DelegateCommand<Color> m_setCurrentColorCommand;
+        private readonly DelegateCommand<BaseFolder> m_setCurrentCommand;
         private readonly TaskData m_taskData;
 
         #endregion Fields
@@ -19,14 +20,14 @@ namespace Tasks.Show.ViewModels
 
         public Folders(TaskData taskData)
         {
-            Util.RequireNotNull(taskData, "taskList");
+            Contract.Requires(null != taskData, "taskList");
             m_taskData = taskData;
 
-            m_setCurrentCommand = new CommandWrapper<BaseFolder>(
+            m_setCurrentCommand = new DelegateCommand<BaseFolder>(
                 val => m_taskData.CurrentFolder = val,
                 val => m_taskData.CurrentFolder != val);
 
-            m_setCurrentColorCommand = new CommandWrapper<Color>(
+            m_setCurrentColorCommand = new DelegateCommand<Color>(
                 var => m_taskData.CurrentFolder.Color = var,
                 var => IsCurrentUserFolder
             );
@@ -49,9 +50,9 @@ namespace Tasks.Show.ViewModels
             get { return !m_taskData.CurrentFolder.IsSpecial; }
         }
 
-        public ICommand SetCurrentColorCommand { get { return m_setCurrentColorCommand.Command; } }
+        public ICommand SetCurrentColorCommand { get { return m_setCurrentColorCommand; } }
 
-        public ICommand SetCurrentCommand { get { return m_setCurrentCommand.Command; } }
+        public ICommand SetCurrentCommand { get { return m_setCurrentCommand; } }
 
         #endregion Properties
     }

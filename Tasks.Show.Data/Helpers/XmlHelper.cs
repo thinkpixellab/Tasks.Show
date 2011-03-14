@@ -4,6 +4,7 @@ using System.Linq;
 using System.Xml;
 using System.Xml.Linq;
 using PixelLab.Common;
+using PixelLab.Contracts;
 using Tasks.Show.Models;
 
 namespace Tasks.Show.Helpers
@@ -133,7 +134,7 @@ namespace Tasks.Show.Helpers
 
         public static IEnumerable<Task> GetTasks(XElement element, Func<Guid, Folder> folderMapper)
         {
-            Util.Require(element.Name == "Tasks");
+            Contract.Requires(element.Name == "Tasks");
             foreach (var taskElement in element.Elements())
             {
                 yield return GetTask(taskElement, folderMapper);
@@ -142,7 +143,7 @@ namespace Tasks.Show.Helpers
 
         public static Task GetTask(XElement element, Func<Guid, Folder> folderMapper)
         {
-            Util.Require(element.Name == "Task");
+            Contract.Requires(element.Name == "Task");
             var task = new Task();
             string attrValue;
             if (TryGetAttributeValue(element, "Folder", out attrValue))
@@ -174,7 +175,7 @@ namespace Tasks.Show.Helpers
 
         public static IEnumerable<Folder> GetFolders(XElement element, out IDictionary<Guid, Folder> folderMapper)
         {
-            Util.Require(element.Name == "Folders");
+            Contract.Requires(element.Name == "Folders");
             var list = new List<Folder>();
             Guid key;
             Folder folder;
@@ -190,7 +191,7 @@ namespace Tasks.Show.Helpers
 
         public static Folder GetFolder(XElement element, out Guid key)
         {
-            Util.Require(element.Name == "Folder");
+            Contract.Requires(element.Name == "Folder");
             var name = element.Attribute("Name").Value;
             var color = BOT.ParseHexColor(element.Attribute("Color").Value);
             key = new Guid(element.Attribute(s_KeyName).Value);

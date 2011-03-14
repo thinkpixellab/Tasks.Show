@@ -1,6 +1,7 @@
-﻿using System.Windows.Media;
-using System;
+﻿using System;
+using System.Windows.Media;
 using PixelLab.Common;
+using PixelLab.Contracts;
 
 namespace Tasks.Show.Helpers
 {
@@ -8,8 +9,8 @@ namespace Tasks.Show.Helpers
     {
         public static Color ParseHexColor(string colorString)
         {
-            Util.RequireNotNullOrEmpty(colorString, "colorString");
-            Util.RequireArgument(((colorString.Length == 4) || (colorString.Length == 5) || (colorString.Length == 7) || (colorString.Length == 9)) && (colorString[0] == '#'), "colorString");
+            Contract.Requires(!colorString.IsNullOrWhiteSpace(), "colorString");
+            Contract.Requires(((colorString.Length == 4) || (colorString.Length == 5) || (colorString.Length == 7) || (colorString.Length == 9)) && (colorString[0] == '#'), "colorString");
 
             int num;
             int num2;

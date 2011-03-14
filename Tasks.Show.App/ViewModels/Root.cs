@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Windows.Media;
 using System.Windows.Threading;
-using Tasks.Show.Helpers;
-using Tasks.Show.Models;
 using PixelLab.Common;
-using System.Collections.ObjectModel;
+using PixelLab.Contracts;
+using Tasks.Show.Models;
 
 namespace Tasks.Show.ViewModels
 {
@@ -23,10 +23,10 @@ namespace Tasks.Show.ViewModels
 
         public Root(TaskData taskData, IEnumerable<Color> folderColorOptions)
         {
-            Util.RequireNotNull(taskData, "taskData");
+            Contract.Requires(null != taskData, "taskData");
             m_taskData = taskData;
 
-            Util.RequireNotNull(folderColorOptions, "folderColorOptions");
+            Contract.Requires(null != folderColorOptions, "folderColorOptions");
             m_folderColorOptions = folderColorOptions.ToReadOnlyCollection();
 
             Tasks = new TaskListViewModel(taskData, filter);
@@ -77,10 +77,10 @@ namespace Tasks.Show.ViewModels
         {
             var handler = PropertyChanged;
             if (handler != null)
-        {
+            {
                 handler(this, new PropertyChangedEventArgs("Today"));
                 handler(this, new PropertyChangedEventArgs("Now"));
-        }
+            }
         }
 
         #endregion Event Handlers

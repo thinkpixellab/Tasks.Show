@@ -2,6 +2,7 @@
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using PixelLab.Common;
+using PixelLab.Contracts;
 using Tasks.Show.Helpers;
 using Tasks.Show.Models;
 
@@ -22,7 +23,7 @@ namespace Tasks.Show.Test
             taskData.RenameFolder(folderToRename, folderToRename.Name.ToLowerInvariant());
 
             var novelName = Environment.TickCount.ToString();
-            Util.Require(!taskData.AllFolders.Any(bf => bf.Name.EasyEquals(novelName)), "test a totally novel name");
+            Contract.Requires(!taskData.AllFolders.Any(bf => bf.Name.EasyEquals(novelName)), "test a totally novel name");
             taskData.RenameFolder(folderToRename, novelName);
 
             taskData.RenameFolder(folderToRename, otherExisting.Name);
@@ -36,7 +37,7 @@ namespace Tasks.Show.Test
             var folderToRemove = taskData.AllFolders.OfType<Folder>().ToArray().Random();
 
             var associatedTasks = taskData.Tasks.Where(task => task.Folder == folderToRemove).ToArray();
-            Util.Require(associatedTasks.Length > 0);
+            Contract.Requires(associatedTasks.Length > 0);
 
             taskData.RemoveFolder(folderToRemove);
             Assert.IsTrue(associatedTasks.All(task => task.Folder == null));

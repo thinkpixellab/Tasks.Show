@@ -2,27 +2,27 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Input;
+using Microsoft.Practices.Prism.Commands;
+using PixelLab.Contracts;
 using Tasks.Show.Models;
-using PixelLab.Common;
-using PixelLab.Wpf;
 
 namespace Tasks.Show.ViewModels
 {
     public class Filters
     {
-		#region Fields 
+        #region Fields
 
         private readonly IDictionary<string, Func<Task, bool>> m_items;
-        private readonly CommandWrapper<string> m_setCurrentCommand;
+        private readonly DelegateCommand<string> m_setCurrentCommand;
         private readonly TaskData m_taskList;
 
-		#endregion Fields 
+        #endregion Fields
 
-		#region Constructors 
+        #region Constructors
 
         public Filters(TaskData taskList)
         {
-            Util.RequireNotNull(taskList, "taskList");
+            Contract.Requires(null != taskList, "taskList");
             m_taskList = taskList;
 
             m_items = new Dictionary<string, Func<Task, bool>>();
@@ -57,7 +57,7 @@ namespace Tasks.Show.ViewModels
 
             m_items.Add("Completed", task => task.IsComplete);
 
-            m_setCurrentCommand = new CommandWrapper<string>(
+            m_setCurrentCommand = new DelegateCommand<string>(
                 filterName => Current = filterName,
                 filterName => Current != filterName && m_items.ContainsKey(filterName));
 
@@ -68,9 +68,9 @@ namespace Tasks.Show.ViewModels
             Current = current;
         }
 
-		#endregion Constructors 
+        #endregion Constructors
 
-		#region Properties 
+        #region Properties
 
         public string Current
         {
@@ -79,10 +79,10 @@ namespace Tasks.Show.ViewModels
             {
                 if (value != m_taskList.Filter)
                 {
-                    Util.RequireArgument(m_items.ContainsKey(value), "value");
+                    Contract.Requires(m_items.ContainsKey(value), "value");
                     m_taskList.Filter = value;
 
-                    m_setCurrentCommand.UpdateCanExecute();
+                    m_setCurrentCommand.RaiseCanExecuteChanged();
                     OnCurrentChanged(EventArgs.Empty);
                 }
             }
@@ -90,26 +90,26 @@ namespace Tasks.Show.ViewModels
 
         public IList<string> Items { get { return m_items.Keys.ToArray(); } }
 
-        public ICommand SetCurrentCommand { get { return m_setCurrentCommand.Command; } }
+        public ICommand SetCurrentCommand { get { return m_setCurrentCommand; } }
 
-		#endregion Properties 
+        #endregion Properties
 
-		#region Events 
+        #region Events
 
         public event EventHandler CurrentChanged;
 
-		#endregion Events 
+        #endregion Events
 
-		#region Public Methods 
+        #region Public Methods
 
         public bool InCurrent(Task task)
         {
             return m_items[m_taskList.Filter](task);
         }
 
-		#endregion Public Methods 
+        #endregion Public Methods
 
-		#region Protected Methods 
+        #region Protected Methods
 
         protected virtual void OnCurrentChanged(EventArgs e)
         {
@@ -120,6 +120,6 @@ namespace Tasks.Show.ViewModels
             }
         }
 
-		#endregion Protected Methods 
+        #endregion Protected Methods
     }
 }

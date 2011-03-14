@@ -1,6 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
-using PixelLab.Common;
+using PixelLab.Contracts;
 using Tasks.Show.Models;
 
 namespace Tasks.Show.ViewModels
@@ -17,7 +17,7 @@ namespace Tasks.Show.ViewModels
 
         public TaskViewModel(Task task)
         {
-            Util.RequireNotNull(task, "task");
+            Contract.Requires(task != null);
             Task = task;
 
             task.PropertyChanged += (sender, args) =>

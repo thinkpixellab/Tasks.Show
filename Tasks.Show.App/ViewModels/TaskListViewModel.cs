@@ -5,7 +5,9 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Windows.Input;
+using Microsoft.Practices.Prism.Commands;
 using PixelLab.Common;
+using PixelLab.Contracts;
 using Tasks.Show.Models;
 
 namespace Tasks.Show.ViewModels
@@ -15,7 +17,7 @@ namespace Tasks.Show.ViewModels
         #region Fields
 
         private EditTask m_newTask;
-        private readonly CommandWrapper<Task> m_deleteTaskCommand;
+        private readonly DelegateCommand<Task> m_deleteTaskCommand;
         private readonly Func<Task, bool> m_filter;
         private readonly TaskData m_taskList;
         private readonly ObservableCollectionPlus<TaskViewModel> m_unfilteredTaskList;
@@ -26,20 +28,20 @@ namespace Tasks.Show.ViewModels
 
         public TaskListViewModel(TaskData taskList, Func<Task, bool> filter)
         {
-            Util.RequireNotNull(taskList, "taskList");
+            Contract.Requires(null != taskList, "taskList");
             m_taskList = taskList;
             ((INotifyCollectionChanged)m_taskList.Tasks).CollectionChanged += (sender, args) => RefreshFilter();
 
-            Util.RequireNotNull(filter, "filter");
+            Contract.Requires(null != filter, "filter");
             m_filter = filter;
 
             m_unfilteredTaskList = new ObservableCollectionPlus<TaskViewModel>();
             m_taskList.Tasks.ForEach(t => m_unfilteredTaskList.Add(new TaskViewModel(t)));
 
             // Tasks
-            m_newTaskCommand = new CommandWrapper(ShowNewTask, () => m_newTask == null);
-            m_cancelNewTaskCommand = new CommandWrapper(() => CancelNewTask(), () => m_newTask != null);
-            m_deleteTaskCommand = new CommandWrapper<Task>(task => DeleteTask(task), task => true);
+            m_newTaskCommand = new DelegateCommand(ShowNewTask, () => m_newTask == null);
+            m_cancelNewTaskCommand = new DelegateCommand(() => CancelNewTask(), () => m_newTask != null);
+            m_deleteTaskCommand = new DelegateCommand<Task>(task => DeleteTask(task), task => true);
         }
 
         #endregion Constructors
@@ -51,9 +53,9 @@ namespace Tasks.Show.ViewModels
             get { return m_unfilteredTaskList.ReadOnly; }
         }
 
-        public ICommand CancelNewCommand { get { return m_cancelNewTaskCommand.Command; } }
+        public ICommand CancelNewCommand { get { return m_cancelNewTaskCommand; } }
 
-        public ICommand DeleteTaskCommand { get { return m_deleteTaskCommand.Command; } }
+        public ICommand DeleteTaskCommand { get { return m_deleteTaskCommand; } }
 
         public EditTask NewTask
         {
@@ -72,15 +74,15 @@ namespace Tasks.Show.ViewModels
                         m_newTask.Committed += new_task_committed;
                     }
 
-                    m_newTaskCommand.UpdateCanExecute();
-                    m_cancelNewTaskCommand.UpdateCanExecute();
+                    m_newTaskCommand.RaiseCanExecuteChanged();
+                    m_cancelNewTaskCommand.RaiseCanExecuteChanged();
 
                     OnPropertyChanged(new PropertyChangedEventArgs("NewTask"));
                 }
             }
         }
 
-        public ICommand NewTaskCommand { get { return m_newTaskCommand.Command; } }
+        public ICommand NewTaskCommand { get { return m_newTaskCommand; } }
 
         #endregion Properties
 
@@ -155,6 +157,6 @@ namespace Tasks.Show.ViewModels
 
         #endregion Protected Methods
 
-        private readonly CommandWrapper m_newTaskCommand, m_cancelNewTaskCommand;
+        private readonly DelegateCommand m_newTaskCommand, m_cancelNewTaskCommand;
     }
 }
