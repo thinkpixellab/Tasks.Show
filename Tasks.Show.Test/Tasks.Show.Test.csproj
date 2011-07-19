@@ -79,6 +79,9 @@
     <Reference Include="Microsoft.WindowsAPICodePack.Shell">
       <HintPath>..\Binaries\Microsoft.WindowsAPICodePack.Shell.dll</HintPath>
     </Reference>
+    <Reference Include="PixelLab.Core">
+      <HintPath>..\packages\PixelLab.Core.4.0.0.1\lib\net4\PixelLab.Core.dll</HintPath>
+    </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
@@ -120,18 +123,13 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\bot\Common\PixelLab.Common.csproj">
-      <Project>{273247A2-A3C8-42D0-8463-F95FC5C0A34C}</Project>
-      <Name>PixelLab.Common_WPF4</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\bot\Wpf\PixelLab.Wpf.csproj">
-      <Project>{E4BBC94F-B837-4668-A127-E36E6DE012F5}</Project>
-      <Name>PixelLab.Wpf_4</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Tasks.Show.Data\Tasks.Show.Data.csproj">
       <Project>{BF7415CD-E6B2-4661-B780-6240DA60F605}</Project>
       <Name>Tasks.Show.Data.VS2010</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

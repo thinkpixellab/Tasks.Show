@@ -219,7 +219,7 @@ namespace Tasks.Show.Models
             {
                 m_allFolders.Clear();
                 m_folderList.ForEach(folder => m_allFolders.Add(folder));
-                m_allFolders.Sort((a, b) => a.Name.CompareTo(b.Name));
+                m_allFolders.Sort(new Func<BaseFolder, BaseFolder, int>((a, b) => a.Name.CompareTo(b.Name)));
                 m_allFolders.Insert(0, SpecialFolder.InboxFolder);
                 m_allFolders.Insert(0, SpecialFolder.AllFolder);
             }
